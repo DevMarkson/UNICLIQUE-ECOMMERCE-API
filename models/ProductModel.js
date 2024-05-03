@@ -28,10 +28,6 @@ const ProductSchema = new mongoose.Schema(
       required: [true, "Please provide product category"],
       enum: ["skincare", "stationery", "snacks", "cakes", "fastfood"],
     },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
     company: {
       type: String,
       required: [true, "Please provide company"],
@@ -60,11 +56,11 @@ const ProductSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    user: {
-      type: mongoose.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
+    // user: {
+    //   type: mongoose.Types.ObjectId,
+    //   ref: "User",
+    //   required: true,
+    // },
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
