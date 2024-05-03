@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const connectDB = require("./db/connect");
 const productsRouter = require('./routers/productRoute')
+const fileUpload = require('express-fileupload');
 require('express-async-errors');
 const app = express();
 
@@ -16,6 +17,7 @@ const errorMiddleware = require("./middleware/error-handler");
 
 // middleware
 app.use(express.json());
+app.use(fileUpload({ useTempFiles: true }));
 
 // routes
 app.get("/", (req, res) => {
