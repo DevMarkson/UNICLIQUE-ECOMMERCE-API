@@ -31,9 +31,6 @@ const ProductSchema = new mongoose.Schema(
     company: {
       type: String,
       required: [true, "Please provide company"],
-      enum: {
-        values: ["bscents", "GSK", "Royalcakes"],
-      },
     },
     colors: {
       type: [String],
