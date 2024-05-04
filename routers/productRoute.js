@@ -14,12 +14,13 @@ router.route("/")
     .post(createProduct)
     .get(getAllProducts);
 
+router.route('/uploadImage')
+    .post(uploadImage);
+    
 router.route("/:id")
     .get(getSingleProduct)
     .patch(updateProduct)
     .delete(deleteProduct);
     
-router.route('/uploadImage')
-    .post(uploadImage);
 
 module.exports = router;
