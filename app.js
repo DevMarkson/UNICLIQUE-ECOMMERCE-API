@@ -4,12 +4,23 @@ const express = require("express");
 const connectDB = require("./db/connect");
 const productsRouter = require('./routers/productRoute')
 const fileUpload = require('express-fileupload');
+// USE V2
+const cloudinary = require('cloudinary').v2;
+
 require('express-async-errors');
 const app = express();
 
 // load config
 dotenv.config({
   path: "./config/config.env",
+});
+
+// load cloudinary
+cloudinary.config({
+    path: "./config/config.env",
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.CLOUD_API_KEY,
+    api_secret: process.env.CLOUD_API_SECRET,
 });
 
 const notFoundMiddleware = require("./middleware/not-found");
