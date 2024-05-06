@@ -26,6 +26,10 @@ const SingleOrderItemSchema = mongoose.Schema({
 });
 
 const OrderSchema = mongoose.Schema({
+    charges:{
+        type: Number,
+        required: true
+    },
     shippingFee:{
         type: Number,
         required: true,
