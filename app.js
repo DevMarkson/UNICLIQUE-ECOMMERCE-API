@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const express = require("express");
 const connectDB = require("./db/connect");
 const productsRouter = require('./routers/productRoute')
+const ordersRouter = require('./routers/orderRoute')
 const fileUpload = require('express-fileupload');
 // USE V2
 const cloudinary = require('cloudinary').v2;
@@ -35,7 +36,8 @@ app.get("/", (req, res) => {
   res.send('<h1>Product API</h1><a href="/api/products">products route</a>');
 });
 
-app.use('/api/v1/products', productsRouter)
+app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/orders', ordersRouter);
 
 // products route
 app.use(notFoundMiddleware);

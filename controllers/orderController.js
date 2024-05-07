@@ -60,3 +60,24 @@ const createOrder = async (req, res) =>{
 
     res.status(StatusCodes.CREATED).json({ order})
 }
+
+const getAllOrders = async (req, res) => {
+    const orders = await Order.find({});
+    res.status(StatusCodes.OK).json({ orders, count: orders.length});
+}
+
+const getSingleOrder = async (req, res) => {
+    const { id: orderId } = req.params;
+    const order = await Order.findOne({ _id: orderId});
+    
+    if (!order){
+        throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
+    }
+
+    res.status(StatusCodes.OK).json({ order});
+}
+
+module.exports = {
+    createOrder,
+    getAllOrders,
+};
