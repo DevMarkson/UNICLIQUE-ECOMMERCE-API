@@ -25,7 +25,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.8",
     "morgan": "^1.10.0",
-    "validator": "^13.6.0",
+    "redis": "^4.6.13",
+    "validator": "^13.11.0",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
