@@ -15,7 +15,7 @@ const cloudinary = require('cloudinary').v2;
 const connectDB = require("./db/connect");
 
 // routers
-const authRouter = require('./routes/auth')
+const authRouter = require('./routers/authRoute')
 const productsRouter = require('./routers/productRoute')
 const ordersRouter = require('./routers/orderRoute')
 

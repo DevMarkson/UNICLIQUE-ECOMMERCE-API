@@ -10,3 +10,5 @@ const {
 router.route('/')
     .post(createOrder)
     .get(getAllOrders);
+
+module.exports = router;
