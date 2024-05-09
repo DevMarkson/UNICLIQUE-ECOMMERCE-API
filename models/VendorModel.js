@@ -44,14 +44,14 @@ const VendorSchema = new mongoose.Schema({
 });
 
 // Hash the password before saving
-UserSchema.pre('save', async function (next) {
+VendorSchema.pre('save', async function (next) {
     if (!this.isModified('password')) return;
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
 
 // Compare the provided password with the hashed password
-UserSchema.methods.comparePassword = async function (candidatePassword) {
+VendorSchema.methods.comparePassword = async function (candidatePassword) {
     const isMatch =  await bcrypt.compare(candidatePassword, this.password);
     return isMatch;
 };
