@@ -1,5 +1,6 @@
-const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const CustomError = require('../errors');
 const { validateEmail, validatePassword } = require('../utils/userValidators');
 // const { errorHandler } = require('../utils/errorHandler');
 // const redisClient = require('../utils/redis');
