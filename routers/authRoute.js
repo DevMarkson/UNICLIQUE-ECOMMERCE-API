@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const {registerUser, authenticateUser} = require('../controllers/authController');
+const {register} = require('../controllers/authController');
 
 router.route('/login')
-    .post(authenticateUser)
+    // .post(authenticateUser)
     .get((req,res) => { res.send("Hello login");
 });
 
 router.route('/register')
-    .post(registerUser)
+    .post(register)
     .get((req,res) => { res.send("Hello Register");
 });
 

@@ -1,45 +1,49 @@
-const User = require('../models/User');
-const jwt = require('jsonwebtoken');
-const {StatusCodes} = require('http-status-codes');
-const CustomError = require('../errors');
-const {attachCookiesToResponse, createTokenUser} = require('../utils');
-const { validateEmail, validatePassword } = require('../utils/userValidators');
-
+const User = require("../models/UserModel");
+const jwt = require("jsonwebtoken");
+const { StatusCodes } = require("http-status-codes");
+const CustomError = require("../errors");
+const { attachCookiesToResponse, createTokenUser } = require("../utils");
+const { validateEmail, validatePassword } = require("../utils/userValidators");
 
 // Register a new user
 const register = async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, password, confirmPassword } = req.body;
+  const { firstName, lastName, email, phoneNumber, password } = req.body;
 
-    // Validate input
-    const isValidEmail = validateEmail(email);
-    const isValidPassword = validatePassword(password);
-    const isValidConfirmPassword = validatePassword(confirmPassword);
+//   // Validate input
+//   const isValidEmail = validateEmail(email);
+//   const isValidPassword = validatePassword(password);
 
-    if (!isValidEmail || !isValidPassword || !isValidConfirmPassword) {
-        throw new CustomError.BadRequestError('Invalid input' );
-    }
+//   if (!isValidEmail || !isValidPassword) {
+//     throw new CustomError.BadRequestError("Invalid input");
+//   }
 
-    if (password !== confirmPassword) {
-        throw new CustomError.BadRequestError('Passwords do not match' );
-    }
+//   if (password !== confirmPassword) {
+//     throw new CustomError.BadRequestError("Passwords do not match");
+//   }
 
-    // Check if the email already exists
-    const emailAlreadyExists = await User.findOne({ email });
-    if (emailAlreadyExists) {
-        throw new CustomError.BadRequestError('Email already exists' );
-    }
+  // Check if the email already exists
+  const emailAlreadyExists = await User.findOne({ email });
+  if (emailAlreadyExists) {
+    throw new CustomError.BadRequestError("Email already exists");
+  }
 
-    // first registered user is an admin
-    const isFirstAccount = (await User.countDocuments({})) === 0;
-    const role = isFirstAccount ? 'admin' : 'user';
+  // first registered user is an admin
+  const isFirstAccount = (await User.countDocuments({})) === 0;
+  const role = isFirstAccount ? "admin" : "user";
 
-    const user = await User.create({firstName, lastName, email, phoneNumber, password, role});
-    const tokenUser = createTokenUser(user);
-    attachCookiesToResponse({res, user: tokenUser});
-    res.status(StatusCodes.CREATED).json({ user: tokenUser});
+  const user = await User.create({
+    firstName,
+    lastName,
+    email,
+    phoneNumber,
+    password,
+    role,
+  });
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 
-
 module.exports = {
-    register,
-}
+  register,
+};

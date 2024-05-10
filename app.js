@@ -1,5 +1,6 @@
 const path = require("path");
 const dotenv = require("dotenv");
+const cookieParser = require('cookie-parser');
 const express = require("express");
 const fileUpload = require('express-fileupload');
 const rateLimiter = require('express-rate-limit');
@@ -53,6 +54,7 @@ app.use(mongoSanitize());
 
 // middleware
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
 app.use(fileUpload({ useTempFiles: true }));
 
 // routes
