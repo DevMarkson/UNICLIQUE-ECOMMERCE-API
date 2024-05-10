@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const {register} = require('../controllers/authController');
+const {register, login} = require('../controllers/authController');
 
 router.route('/login')
-    // .post(authenticateUser)
+    .post(login)
     .get((req,res) => { res.send("Hello login");
 });
 
