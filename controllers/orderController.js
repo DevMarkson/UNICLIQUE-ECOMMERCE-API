@@ -6,7 +6,7 @@ const CustomError = require('../errors');
 
 
 const StripeAPI = async ({ amount, currency }) =>{
-    const client_secret = 'randomValue';
+    // const client_secret = 'randomValue';
     return {client_secret, amount};
 };
 
