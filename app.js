@@ -16,9 +16,10 @@ const cloudinary = require('cloudinary').v2;
 const connectDB = require("./db/connect");
 
 // routers
-const authRouter = require('./routers/authRoute')
-const productsRouter = require('./routers/productRoute')
-const ordersRouter = require('./routers/orderRoute')
+const authRouter = require('./routers/authRoute');
+const userRouter = require('./routers/userRoute');
+const productsRouter = require('./routers/productRoute');
+const ordersRouter = require('./routers/orderRoute');
 
 require('express-async-errors');
 const app = express();
@@ -65,6 +66,7 @@ app.get("/", (req, res) => {
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/orders', ordersRouter);
+app.use('./api/vi/users', userRouter);
 
 // products route
 app.use(notFoundMiddleware);
