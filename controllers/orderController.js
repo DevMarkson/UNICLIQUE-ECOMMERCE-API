@@ -3,6 +3,7 @@ const Product = require('../models/ProductModel');
 
 const {StatusCodes} = require('http-status-codes');
 const CustomError = require('../errors');
+const { checkPreferences } = require('joi');
 
 
 const StripeAPI = async ({ amount, currency }) =>{
@@ -44,7 +45,7 @@ const createOrder = async (req, res) =>{
 
         // add items to order
         orderItems = [...orderItems, SingleOrderItem];
-        // calculate suntotal
+        // calculate subtotal
         subtotal += item.amount * price;
     }
     // calculate total
@@ -74,10 +75,36 @@ const getSingleOrder = async (req, res) => {
         throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
     }
 
+    checkPermissions(req.user, order.user);
     res.status(StatusCodes.OK).json({ order});
 }
+
+const getCurrentUserOrders = async (req, res) => {
+    const orders = await Order.find({ user: req.user.userId});
+    res.status(StatusCodes.OK).json({ orders, count: orders.length});
+}
+
+const updateOrder = async (req, res) => {
+    const {id: orderId} = req.params;
+    const { paymentIntentId } = req.body;
+}
+
+const order = await Order.findOne({ _id: orderId});
+if (!order){
+    throw new CustomError.NotFoundError(`No order with id : ${orderId}`);
+}
+checkPermissions(req.user, order.user);
+
+order.paymentIntentId = paymentIntentId;
+order.status = 'paid';
+await order.save();
+
+res.status(StatusCodes.OK).json({ order });
 
 module.exports = {
     createOrder,
     getAllOrders,
+    getCurrentUserOrders,
+    createOrder,
+    updateOrder,
 };
