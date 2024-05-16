@@ -51,12 +51,20 @@ const createOrder = async (req, res) =>{
     // calculate total
     const total = charges + ShippingFee + subtotal;
 
+    // get client secret
+    const paymentIntent = await StripeAPI({
+        amount: total,
+        currency: 'naira',
+    });
+
     const order = await Order.create({
         orderItems,
         total,
         subtotal,
         charges,
-        ShippingFee
+        ShippingFee,
+        clientSecret: paymentIntent.client_secret,
+        user: req.user.userId
     });
 
     res.status(StatusCodes.CREATED).json({ order})
