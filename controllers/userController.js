@@ -65,6 +65,7 @@ module.exports = {
     getSingleUser,
     updateUser,
     updateUserPassword,
+    showCurrentUser,
 }
 
 
