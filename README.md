@@ -1,0 +1,1 @@
+The Uniclique-Ecommerce-API facilitates the management of products in an eCommerce application, allowing developers to create, read, update, and delete product data. The schema ensures data consistency, enforces business rules (like valid categories and company names), and handles related data (like reviews) effectively.
