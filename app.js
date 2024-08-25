@@ -66,7 +66,7 @@ app.use(fileUpload({ useTempFiles: true }));
 
 // routes
 app.get("/", (req, res) => {
-  res.send('<h1>Uniclique E-commerce API</h1><a href="/api/v1/products">products route</a>');
+  res.send('<h1>Uniclique E-commerce API</h1><a href="/api-docs">Swagger Documentation</a>');
 });
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
