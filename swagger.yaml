@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Uniclique E-commerce API
+  version: 1.0.0
+servers:
+  - url: https://uniclique-ecommerce-api.onrender.com/api/v1
+paths:
+  /auth/register:
+    post:
+      tags:
+        - default
+      summary: Register User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                firstName: Favour
+                lastName: Maparo
+                email: marksongee@gmail.com
+                phoneNumber: '08020405070'
+                password: Maparo
+                role: user
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /auth/login:
+    post:
+      tags:
+        - default
+      summary: Login user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: maparo165@gmail.com
+                password: Maparo
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /products:
+    get:
+      tags:
+        - default
+      summary: Get all products
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /products/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The Product ID
+    post:
+      tags:
+        - default
+      summary: Create a product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Trail Mix Snack Pack
+                price: 10.99
+                description: Energy-boosting trail mix snack pack with nuts and seeds
+                image: /uploads/trail_mix_snack_pack.jpeg
+                category: snacks
+                company: bscents
+                colors:
+                  - '#8B4513'
+                  - '#FFD700'
+                  - '#006400'
+                featured: false
+                freeShipping: true
+                rating: 4.6
+                numOfReviews: 28
+                createdAt: '2024-05-04T08:40:34.991Z'
+                updatedAt: '2024-05-04T08:40:34.991Z'
+                __v: 0
+                id: 6635f482401d13f649d8ae1b
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - default
+      summary: Get a product
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    patch:
+      tags:
+        - default
+      summary: Update a product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                _id: 6635f482401d13f649d8ae14
+                name: Moisturizing Cream
+                price: 15.99
+                description: Hydrating moisturizer for soft and supple skin
+                image: /uploads/moisturizing_cream.jpeg
+                category: skincare
+                company: bscents
+                colors:
+                  - '#FFFFFF'
+                  - '#FFC0CB'
+                  - '#00FF00'
+                featured: true
+                freeShipping: false
+                rating: 4.85
+                numOfReviews: 56
+                createdAt: '2024-05-04T08:40:34.991Z'
+                updatedAt: '2024-05-04T08:40:34.991Z'
+                __v: 0
+                id: 6635f482401d13f649d8ae14
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - default
+      summary: Delete a Product
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
