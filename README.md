@@ -1,78 +1,200 @@
-# UNICLIQUE E-COMMERCE API
+# Uniclique E-Commerce API
 
-This is an E-commerce API built with Node.js, Express, and MongoDB. It provides endpoints for user authentication, product management, and order processing.
+This is an E-commerce API built with Node.js, Express, and MongoDB. It provides endpoints for user authentication, product management, and order processing. It also provides Swagger documentation for easy reference.
 
-## Features
+## Table of Contents
+- [Swagger Documentation](#swagger-documentation)
+- [API Endpoints](#api-endpoints)
+  - [Authentication](#authentication)
+  - [Products](#products)
+  - [Orders](#orders)
+- [Swagger YAML](#swagger-yaml)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+- [Database Connection](#database-connection)
+- [Middleware](#middleware)
+- [Models](#models)
+- [Controllers](#controllers)
 
-- User registration and login with JWT authentication
-- Email verification for new users
-- Product management (CRUD operations)
-- Order management (CRUD operations)
-- Secure file uploads with Cloudinary
-- Rate limiting, security headers, and input sanitization
-
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/DevMarkson/UNICLIQUE-ECOMMERCE-API.git
-    cd UNICLIQUE-ECOMMERCE-API
-    ```
-
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
-
-3. Create a `.env` file in the root directory and add the following environment variables:
-    ```env
-    PORT=3000
-    MONGO_URI=your_mongo_connection_string
-    JWT_SECRET=your_jwt_secret
-    SMTP_HOST=your_smtp_host
-    SMTP_PORT=your_smtp_port
-    SMTP_USER=your_smtp_user
-    SMTP_PASS=your_smtp_pass
-    CLOUD_NAME=your_cloudinary_cloud_name
-    CLOUD_API_KEY=your_cloudinary_api_key
-    CLOUD_API_SECRET=your_cloudinary_api_secret
-    FRONTEND_URL=your_frontend_url
-    ```
-
-4. Start the server:
-    ```sh
-    npm start
-    ```
+## Swagger Documentation
+You can access the Swagger documentation for this API at `https://uniclique-ecommerce-api.onrender.com/api-docs`. The Swagger UI provides detailed information about the API endpoints, request schemas, and example requests and responses.
 
 ## API Endpoints
 
-### Auth Routes
+### Authentication
+- **POST /api/v1/auth/register**
+  - Register a new user.
+  - Example Request Body:
+    ```json
+    {
+      "firstName": "Favour",
+      "lastName": "Maparo",
+      "email": "marksongee@gmail.com",
+      "phoneNumber": "08020405070",
+      "password": "Maparo",
+      "role": "user"
+    }
+    ```
 
-- `POST /api/v1/auth/register` - Register a new user
-- `POST /api/v1/auth/login` - Login a user
-- `GET /api/v1/auth/logout` - Logout a user
+- **POST /api/v1/auth/login**
+  - Log in an existing user.
+  - Example Request Body:
+    ```json
+    {
+      "email": "maparo165@gmail.com",
+      "password": "Maparo"
+    }
+    ```
 
-### Product Routes
+### Products
+- **POST /api/v1/products**
+  - Create a new product (requires authentication).
+  - Example Request Body:
+    ```json
+    {
+      "name": "Product Name",
+      "description": "Product Description",
+      "price": 100,
+      "imageUrl": "http://example.com/image.jpg"
+    }
+    ```
 
-- `GET /api/v1/products` - Get all products
-- `POST /api/v1/products` - Create a new product
-- `GET /api/v1/products/:id` - Get a single product
-- `PATCH /api/v1/products/:id` - Update a product
-- `DELETE /api/v1/products/:id` - Delete a product
+- **GET /api/v1/products**
+  - Retrieve all products.
 
-### Order Routes
+- **GET /api/v1/products/{id}**
+  - Retrieve a single product by its ID.
 
-- `GET /api/v1/orders` - Get all orders
-- `POST /api/v1/orders` - Create a new order
-- `GET /api/v1/orders/:id` - Get a single order
-- `PATCH /api/v1/orders/:id` - Update an order
-- `DELETE /api/v1/orders/:id` - Delete an order
+- **PATCH /api/v1/products/{id}**
+  - Update a product by its ID (requires authentication).
+  - Example Request Body:
+    ```json
+    {
+      "name": "Updated Product Name",
+      "description": "Updated Product Description",
+      "price": 150
+    }
+    ```
+
+- **DELETE /api/v1/products/{id}**
+  - Delete a product by its ID (requires authentication).
+
+### Orders
+- **POST /api/v1/orders**
+  - Create a new order (requires authentication).
+  - Example Request Body:
+    ```json
+    {
+      "products": [
+        {
+          "productId": "product_id_1",
+          "quantity": 2
+        },
+        {
+          "productId": "product_id_2",
+          "quantity": 1
+        }
+      ],
+      "paymentStatus": "pending"
+    }
+    ```
+
+- **GET /api/v1/orders**
+  - Retrieve all orders for the authenticated user.
+
+- **GET /api/v1/orders/{id}**
+  - Retrieve a single order by its ID.
+
+- **PATCH /api/v1/orders/{id}**
+  - Update an order by its ID (requires authentication).
+  - Example Request Body:
+    ```json
+    {
+      "paymentStatus": "completed"
+    }
+    ```
+
+- **DELETE /api/v1/orders/{id}**
+  - Delete an order by its ID (requires authentication).
+
+## Authentication
+The API uses JSON Web Tokens (JWT) for authentication. When a user registers or logs in, a JWT token is provided in the response. To authenticate for protected routes (products and orders-related endpoints), include this token in the `Authorization` header of your requests with the format: `Bearer <token>`.
+
+## Swagger YAML
+The Swagger documentation is defined in the `swagger.yaml` file. It provides detailed information about the API endpoints, request and response schemas, and example data.
 
 ## Prerequisites
-
+Before you can use the Uniclique E-commerce API, make sure you have the following installed:
 - Node.js
 - MongoDB
+- Git
 
-## Authors
+## Getting Started
+1. Clone the repository to your local machine:
+    ```sh
+    git clone https://github.com/yourusername/uniclique-ecommerce-api.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd uniclique-ecommerce-api
+    ```
+3. Install the dependencies:
+    ```sh
+    npm install
+    ```
+4. Set up environment variables by creating a `.env` file in the root directory. Use this format:
+    ```env
+    PORT=3000
+    MONGO_URI=your_mongo_uri
+    JWT_SECRET=your_jwt_secret
+    CLOUD_NAME=your_cloudinary_cloud_name
+    CLOUD_API_KEY=your_cloudinary_api_key
+    CLOUD_API_SECRET=your_cloudinary_api_secret
+    PAYSTACK_SECRET_KEY=your_paystack_secret_key
+    ```
+5. Start the server:
+    ```sh
+    npm start
+    ```
+    The API should now be running on `http://localhost:3000`.
 
-- [DevMarkson](https://github.com/DevMarkson)
+## Database Connection
+The API connects to a MongoDB database using Mongoose. The database connection is managed in the `db/connect.js` file.
+
+## Middleware
+The API includes several middleware functions for security and request handling:
+- `helmet`: Provides security-related HTTP headers.
+- `cors`: Enables Cross-Origin Resource Sharing.
+- `xss-clean`: Protects against cross-site scripting (XSS) attacks.
+- `express-rate-limit`: Implements rate limiting to prevent abuse of the API.
+- `authentication`: Middleware to verify JWT tokens and authenticate users.
+- `not-found`: Handles requests for non-existent routes.
+- `error-handler`: Centralized error handling and response formatting.
+
+## Models
+The API uses several mongoose models:
+- **User Model**
+  - Stores user information including name, email, and hashed password.
+  - Provides methods for creating JWT tokens and comparing passwords.
+- **Product Model**
+  - Stores product details like name, description, price, and image URL.
+- **Order Model**
+  - Stores order details including user, products, and payment status.
+
+## Controllers
+The API controllers handle request processing:
+- **Auth Controller**
+  - `register`: Handles user registration.
+  - `login`: Handles user login.
+- **Product Controller**
+  - `getAllProducts`: Retrieves all products.
+  - `getProduct`: Retrieves a single product by its ID.
+  - `createProduct`: Creates a new product.
+  - `updateProduct`: Updates a product by its ID.
+  - `deleteProduct`: Deletes a product by its ID.
+- **Order Controller**
+  - `getAllOrders`: Retrieves all orders for the authenticated user.
+  - `getOrder`: Retrieves a single order by its ID.
+  - `createOrder`: Creates a new order.
+  - `updateOrder`: Updates an order by its ID.
+  - `deleteOrder`: Deletes an order by its ID.

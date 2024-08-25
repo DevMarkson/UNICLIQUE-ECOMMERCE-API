@@ -10,6 +10,11 @@ const xss = require("xss-clean");
 const cors = require("cors");
 const mongoSanitize = require("express-mongo-sanitize");
 
+// swagger
+const swaggerUI = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load('./swagger.yaml')
+
 // USE V2
 const cloudinary = require("cloudinary").v2;
 
