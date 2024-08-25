@@ -105,7 +105,7 @@ app.get("/paystack", (req, res) => {
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/products", productsRouter);
 app.use("/api/v1/orders", ordersRouter);
-app.use("./api/vi/users", userRouter);
+app.use("/api/vi/users", userRouter);
 
 // products route
 app.use(notFoundMiddleware);
