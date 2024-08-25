@@ -18,6 +18,7 @@ This is an E-commerce API built with Node.js, Express, and MongoDB. It provides 
 
 ## Swagger Documentation
 You can access the Swagger documentation for this API at `https://uniclique-ecommerce-api.onrender.com/api-docs`. The Swagger UI provides detailed information about the API endpoints, request schemas, and example requests and responses.
+![Swagger Documentation of Uniclique E-commerce API](swagger-docs.png)
 
 ## API Endpoints
 
